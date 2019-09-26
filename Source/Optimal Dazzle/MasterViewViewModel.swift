@@ -13,13 +13,19 @@ class MasterViewViewModel: NSObject, NSFetchedResultsControllerDelegate {
 
     var managedObjectContext: NSManagedObjectContext? = nil
     
+    // Set this to the latest string being entered, used to invalidate
+    // result if the result is for a different string. To cut down on
+    // unecessary refreshes.
+    var searchingFor: String?
+    
+    
     var fetchedResultsController: NSFetchedResultsController<Event> {
         if _fetchedResultsController != nil {
             return _fetchedResultsController!
         }
         
         let fetchRequest: NSFetchRequest<Event> = Event.fetchRequest()
-        
+
         // Set the batch size to a suitable number.
 //        fetchRequest.fetchBatchSize = 20
         
@@ -77,7 +83,13 @@ class MasterViewViewModel: NSObject, NSFetchedResultsControllerDelegate {
         return section.numberOfObjects
     }
     
-    
+    var objects: [Event] {
+        
+        guard let events = self._fetchedResultsController?.fetchedObjects else {
+            return []
+        }
+        return events
+    }
 }
 
 

@@ -9,9 +9,16 @@
 import UIKit
 import CoreData
 
-class MasterViewController: UITableViewController, NSFetchedResultsControllerDelegate {
-
+class MasterViewController: UITableViewController, UISearchResultsUpdating, NSFetchedResultsControllerDelegate {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        print(searchController.searchBar.text ?? "znON:" )
+    }
+    
     var detailViewController: DetailViewController? = nil
+    let searchController = UISearchController(searchResultsController: nil)
+    
     var managedObjectContext: NSManagedObjectContext? = nil {
         didSet {
             self.viewModel.managedObjectContext = managedObjectContext
@@ -22,8 +29,23 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.titleView = searchController.searchBar
+        searchController.searchBar.placeholder = "Search for an event"
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchResultsUpdater = self
+        
+//        self.searchBarView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width - 32, height: self.searchBarView.frame.height)
+        
+//        self.searchBarView.placeholder = "Search for an event"
+        
+//        self.searhBar.placeholder = "Search for an event"
+        
+//        let leftBarButton = UIBarButtonItem(customView: self.searhBar)
+//        self.navigationItem.leftBarButtonItem = leftBarButton
+        
         // Do any additional setup after loading the view.
-        navigationItem.leftBarButtonItem = editButtonItem
+//        navigationItem.leftBarButtonItem = editButtonItem
 
 //        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
 //        navigationItem.rightBarButtonItem = addButton

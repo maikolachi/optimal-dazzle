@@ -10,6 +10,7 @@
 		A49C6AAF233C3DF000A47850 /* MasterViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49C6AAE233C3DF000A47850 /* MasterViewViewModel.swift */; };
 		A49C6AB2233C511A00A47850 /* Event+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49C6AB0233C511A00A47850 /* Event+CoreDataClass.swift */; };
 		A49C6AB3233C511A00A47850 /* Event+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49C6AB1233C511A00A47850 /* Event+CoreDataProperties.swift */; };
+		A49C6AB5233C73D000A47850 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49C6AB4233C73D000A47850 /* EventModel.swift */; };
 		A4B9A170233C34EE000979FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B9A16F233C34EE000979FC /* AppDelegate.swift */; };
 		A4B9A173233C34EE000979FC /* Optimal_Dazzle.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A4B9A171233C34EE000979FC /* Optimal_Dazzle.xcdatamodeld */; };
 		A4B9A175233C34EE000979FC /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B9A174233C34EE000979FC /* MasterViewController.swift */; };
@@ -42,6 +43,7 @@
 		A49C6AAE233C3DF000A47850 /* MasterViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewViewModel.swift; sourceTree = "<group>"; };
 		A49C6AB0233C511A00A47850 /* Event+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A49C6AB1233C511A00A47850 /* Event+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A49C6AB4233C73D000A47850 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		A4B9A16C233C34EE000979FC /* Optimal Dazzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Optimal Dazzle.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4B9A16F233C34EE000979FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4B9A172233C34EE000979FC /* Optimal_Dazzle.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Optimal_Dazzle.xcdatamodel; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				A49C6AB0233C511A00A47850 /* Event+CoreDataClass.swift */,
 				A49C6AB1233C511A00A47850 /* Event+CoreDataProperties.swift */,
 				A49C6AAE233C3DF000A47850 /* MasterViewViewModel.swift */,
+				A49C6AB4233C73D000A47850 /* EventModel.swift */,
 			);
 			path = "Optimal Dazzle";
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				A49C6AB3233C511A00A47850 /* Event+CoreDataProperties.swift in Sources */,
 				A4B9A177233C34EE000979FC /* DetailViewController.swift in Sources */,
 				A49C6AB2233C511A00A47850 /* Event+CoreDataClass.swift in Sources */,
+				A49C6AB5233C73D000A47850 /* EventModel.swift in Sources */,
 				A49C6AAF233C3DF000A47850 /* MasterViewViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

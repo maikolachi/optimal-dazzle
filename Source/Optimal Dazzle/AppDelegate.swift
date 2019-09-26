@@ -9,6 +9,9 @@
 import UIKit
 import CoreData
 
+
+// 082c8be00a3f5872aee37b02180970780e15725c532fd3c1d5ed69d7cda97c20
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
