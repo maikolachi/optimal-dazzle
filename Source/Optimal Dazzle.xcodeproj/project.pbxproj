@@ -20,6 +20,7 @@
 		A4B9A17F233C34EF000979FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4B9A17D233C34EF000979FC /* LaunchScreen.storyboard */; };
 		A4B9A18A233C34EF000979FC /* Optimal_DazzleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B9A189233C34EF000979FC /* Optimal_DazzleTests.swift */; };
 		A4B9A195233C34EF000979FC /* Optimal_DazzleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B9A194233C34EF000979FC /* Optimal_DazzleUITests.swift */; };
+		A4C783A2233DAEDF006B4885 /* Collection+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C783A1233DAEDF006B4885 /* Collection+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		A4B9A190233C34EF000979FC /* Optimal DazzleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Optimal DazzleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4B9A194233C34EF000979FC /* Optimal_DazzleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optimal_DazzleUITests.swift; sourceTree = "<group>"; };
 		A4B9A196233C34EF000979FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A4C783A1233DAEDF006B4885 /* Collection+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 				A49C6AB1233C511A00A47850 /* Event+CoreDataProperties.swift */,
 				A49C6AAE233C3DF000A47850 /* MasterViewViewModel.swift */,
 				A49C6AB4233C73D000A47850 /* EventModel.swift */,
+				A4C783A1233DAEDF006B4885 /* Collection+.swift */,
 			);
 			path = "Optimal Dazzle";
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 			files = (
 				A4B9A173233C34EE000979FC /* Optimal_Dazzle.xcdatamodeld in Sources */,
 				A4B9A170233C34EE000979FC /* AppDelegate.swift in Sources */,
+				A4C783A2233DAEDF006B4885 /* Collection+.swift in Sources */,
 				A4B9A175233C34EE000979FC /* MasterViewController.swift in Sources */,
 				A49C6AB3233C511A00A47850 /* Event+CoreDataProperties.swift in Sources */,
 				A4B9A177233C34EE000979FC /* DetailViewController.swift in Sources */,

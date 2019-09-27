@@ -15,21 +15,41 @@ struct EventsModel: Codable {
 struct EventModel: Codable {
     let title: String
     let id: UInt
+    let localDateTime: Date    // "datetime_local": "2019-09-26T13:05:00"
+    enum CodingKeys: String, CodingKey {
+        case localDateTime = "datetime_local"
+        case title
+        case id
+    }
     
+    init() {
+        title = "An error occurred"
+        id = 0
+        localDateTime = Date.distantFuture
+    }
 }
 
-struct PerformersModel: Codable {
+struct PerformersModel: Decodable {
     let performers: [PerformerModel]
 }
 
-struct PerformerModel: Codable {
+struct PerformerModel: Decodable {
     let image: String
     let primary: Bool
     let slug: String
-    let home_team: Bool
+    let homeTeam: Bool
+    
+    enum CodingKeys: String, CodingKey {
+        case homeTeam = "home_team"
+        case image
+        case primary
+        case slug
+    }
 }
 
-struct VenuModel: Codable {
-    let display_location: String
-    let datetime_local: Date    // "datetime_local": "2019-09-26T13:05:00"
+struct VenuModel: Decodable {
+    let displayLocation: String
+    enum CodingKeys: String, CodingKey {
+        case displayLocation = "display_location"
+    }
 }

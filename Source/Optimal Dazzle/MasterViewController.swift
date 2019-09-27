@@ -19,9 +19,11 @@ class MasterViewController: UITableViewController, UISearchResultsUpdating, NSFe
     var detailViewController: DetailViewController? = nil
     let searchController = UISearchController(searchResultsController: nil)
     
-    var managedObjectContext: NSManagedObjectContext? = nil {
+    // Container instead of moc to have ability to perform background
+    // thread actions.
+    var persistentContainer: NSPersistentContainer? = nil {
         didSet {
-            self.viewModel.managedObjectContext = managedObjectContext
+            self.viewModel.persistentContainer = self.persistentContainer
         }
     }
     
@@ -69,7 +71,7 @@ class MasterViewController: UITableViewController, UISearchResultsUpdating, NSFe
             if let indexPath = tableView.indexPathForSelectedRow {
                 let object = self.viewModel.event(at: indexPath)
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                controller.detailItem = object
+//                controller.detailItem = object
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
@@ -89,7 +91,7 @@ class MasterViewController: UITableViewController, UISearchResultsUpdating, NSFe
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let event = self.viewModel.event(at: indexPath)
-        configureCell(cell, withEvent: event)
+//        configureCell(cell, withEvent: event)
         return cell
     }
 
