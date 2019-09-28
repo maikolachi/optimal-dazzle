@@ -7,26 +7,35 @@
 //
 
 import Foundation
+import UIKit
 import CoreData
 
-class MasterViewViewModel: NSObject, NSFetchedResultsControllerDelegate {
+
+class MasterViewViewModel: NSObject {
 
     var persistentContainer: NSPersistentContainer? = nil
-   
-    var lastQuery: String?
+    var urlSession = URLSession(configuration: .default)
+    var sessionDataTask: URLSessionDataTask?
     
-    var queryResult: [EventModel]?
+    var queryURLComponents = URLComponents(string: "https://api.seatgeek.com/2/events") ?? URLComponents()
+    var queryItems = [URLQueryItem]()
     
-    var urlComponents = URLComponents()
+    let jsonDecoder = JSONDecoder()
     
     // Set this to the latest string being entered, used to invalidate
     // result if the result is for a different string. To cut down on
     // unecessary refreshes.
     var searchingFor: String?
     
-    init() {
+    override init() {
+        super.init()
         
+        self.queryItems.append(contentsOf: [
+            URLQueryItem(name: "client_id", value: self.clientId),
+            URLQueryItem(name: "client_secret", value: self.clientSecret)
+        ])
     }
+    
     func cachedResult(forQuery: String, onComplete:  @escaping (([Event]) -> Void))  {
         // Bacground fetch
         self.persistentContainer?.performBackgroundTask({ (moc) in
@@ -46,13 +55,36 @@ class MasterViewViewModel: NSObject, NSFetchedResultsControllerDelegate {
      query sting is used to invalidate the return if it does not match what is in the
      search bar.
     **/
-    func result(forQuery: String, onComplete: @escaping ((String, [EventModel]) -> Void))  {
+    func result(forQuery: String, onComplete: @escaping ((String, EventsModel) -> Void))  {
         
-//        api.seatgeek.com/2/events?client_id=MTgzNTg2MTJ8MTU2OTQ2OTgyMC41Nw&client_secret=082c8be00a3f5872aee37b02180970780e15725c532fd3c1d5ed69d7cda97c20&q=Texas Ranger
+        if forQuery.count <= 3 {
+            return
+        }
         
+        self.queryURLComponents.queryItems = self.queryItems + [URLQueryItem(name: "q", value: forQuery)]
+        print(forQuery)
+        guard let url = self.queryURLComponents.url else {
+            return
+        }
         
-        
+        self.sessionDataTask = urlSession.dataTask(with: url) { [weak self] (data, response, error) in
+            
+            if let error = error {
+                print("Data error \(error.localizedDescription)")
+            } else if let data = data {
+                do {
+                    if let jsonModel = try self?.jsonDecoder.decode(EventsModel.self, from: data) {
+                        onComplete(forQuery, jsonModel)
+                    }
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+            
+        }
+        self.sessionDataTask?.resume()
     }
+    
     
 //    var fetchedResultsController: NSFetchedResultsController<Event> {
 //        if _fetchedResultsController != nil {
@@ -107,24 +139,24 @@ class MasterViewViewModel: NSObject, NSFetchedResultsControllerDelegate {
 //        }
 //    }
     
-    func event(at indexPath: IndexPath) -> EventModel {
-        guard let queryResult = self.queryResult else {
-            return  EventModel()
-        }
-//        queryResult[safe: 2]
-        return queryResult[safe: indexPath.row] ?? EventModel()
-    }
-    
-    var numberOfObjects: Int {
-        
-//        guard let section = self.fetchedResultsController.sections?.first else {
-//            return 0
+//    func event(at indexPath: IndexPath) -> EventModel {
+//        guard let queryResult =  queryResult else {
+//            return  EventModel()
 //        }
-//        return section.numberOfObjects
-        
-        return 10
-    }
+////        queryResult[safe: 2]
+//        return queryResult[safe: indexPath.row] ?? EventModel()
+//    }
     
+//    var numberOfObjects: Int {
+//        
+////        guard let section = self.fetchedResultsController.sections?.first else {
+////            return 0
+////        }
+////        return section.numberOfObjects
+//        
+//        return 10
+//    }
+//    
 //    var objects: [Event] {
 //
 //        guard let events = self._fetchedResultsController?.fetchedObjects else {
@@ -132,7 +164,7 @@ class MasterViewViewModel: NSObject, NSFetchedResultsControllerDelegate {
 //        }
 //        return events
 //    }
+    
+    let clientId = "MTgzNTg2MTJ8MTU2OTQ2OTgyMC41Nw"
+    let clientSecret = "082c8be00a3f5872aee37b02180970780e15725c532fd3c1d5ed69d7cda97c20"
 }
-
-
-

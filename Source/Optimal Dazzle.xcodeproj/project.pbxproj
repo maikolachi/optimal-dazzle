@@ -21,6 +21,7 @@
 		A4B9A18A233C34EF000979FC /* Optimal_DazzleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B9A189233C34EF000979FC /* Optimal_DazzleTests.swift */; };
 		A4B9A195233C34EF000979FC /* Optimal_DazzleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B9A194233C34EF000979FC /* Optimal_DazzleUITests.swift */; };
 		A4C783A2233DAEDF006B4885 /* Collection+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C783A1233DAEDF006B4885 /* Collection+.swift */; };
+		A4F4CBD6233F0797003B5ABC /* MasterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F4CBD5233F0797003B5ABC /* MasterTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		A4B9A194233C34EF000979FC /* Optimal_DazzleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optimal_DazzleUITests.swift; sourceTree = "<group>"; };
 		A4B9A196233C34EF000979FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A4C783A1233DAEDF006B4885 /* Collection+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+.swift"; sourceTree = "<group>"; };
+		A4F4CBD5233F0797003B5ABC /* MasterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				A49C6AAE233C3DF000A47850 /* MasterViewViewModel.swift */,
 				A49C6AB4233C73D000A47850 /* EventModel.swift */,
 				A4C783A1233DAEDF006B4885 /* Collection+.swift */,
+				A4F4CBD5233F0797003B5ABC /* MasterTableViewCell.swift */,
 			);
 			path = "Optimal Dazzle";
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				A4C783A2233DAEDF006B4885 /* Collection+.swift in Sources */,
 				A4B9A175233C34EE000979FC /* MasterViewController.swift in Sources */,
 				A49C6AB3233C511A00A47850 /* Event+CoreDataProperties.swift in Sources */,
+				A4F4CBD6233F0797003B5ABC /* MasterTableViewCell.swift in Sources */,
 				A4B9A177233C34EE000979FC /* DetailViewController.swift in Sources */,
 				A49C6AB2233C511A00A47850 /* Event+CoreDataClass.swift in Sources */,
 				A49C6AB5233C73D000A47850 /* EventModel.swift in Sources */,

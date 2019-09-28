@@ -9,12 +9,9 @@
 import UIKit
 import CoreData
 
-class MasterViewController: UITableViewController, UISearchResultsUpdating, NSFetchedResultsControllerDelegate {
+class MasterViewController: UITableViewController {
     
-    func updateSearchResults(for searchController: UISearchController) {
-        
-        print(searchController.searchBar.text ?? "znON:" )
-    }
+    var eventsModel: EventsModel?
     
     var detailViewController: DetailViewController? = nil
     let searchController = UISearchController(searchResultsController: nil)
@@ -69,7 +66,7 @@ class MasterViewController: UITableViewController, UISearchResultsUpdating, NSFe
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let object = self.viewModel.event(at: indexPath)
+//                let object = self.viewModel.event(at: indexPath)
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
 //                controller.detailItem = object
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
@@ -85,12 +82,33 @@ class MasterViewController: UITableViewController, UISearchResultsUpdating, NSFe
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfObjects
+        return self.eventsModel?.events.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let event = self.viewModel.event(at: indexPath)
+        
+        
+        guard
+            let events = self.eventsModel?.events,
+            let event = events[safe: indexPath.row],
+            let cell = tableView.dequeueReusableCell(withIdentifier: "event-cell", for: indexPath) as? MasterTableViewCell else {
+                
+                fatalError("Table view cell could not be created")
+        }
+        
+        cell.titleLabel.text = event.title
+//
+//        let url = URL(string: )
+//        if let data = try? Data(contentsOf: url) {
+//            if let image = UIImage(data: data) {
+//                DispatchQueue.main.async {
+//                    self?.image = image
+//                }
+//            }
+//        }
+//
+//        cell.imageView = UIImage(
+//
 //        configureCell(cell, withEvent: event)
         return cell
     }
@@ -164,4 +182,30 @@ class MasterViewController: UITableViewController, UISearchResultsUpdating, NSFe
      */
 
 }
+
+extension MasterViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+    
+        // Search only when more than three characters entered and nothing
+        // has been searched yet
+        guard let searchText = searchController.searchBar.text else {
+            return
+        }
+        
+        if searchText.count <= 3 {
+            return
+        }
+        
+        self.viewModel.result(forQuery: searchText, onComplete: { (query, events) in
+            self.eventsModel = events
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            
+        })
+    }
+
+}
+
 
