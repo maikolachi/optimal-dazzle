@@ -13,19 +13,22 @@ import CoreData
 
 class MasterViewViewModel: NSObject {
 
+    var events: [EventModel] = [EventModel]()
+    
     var persistentContainer: NSPersistentContainer? = nil
-    var urlSession = URLSession(configuration: .default)
-    var sessionDataTask: URLSessionDataTask?
+    private var urlSession = URLSession(configuration: .default)
+    private var sessionDataTask: URLSessionDataTask?
     
-    var queryURLComponents = URLComponents(string: "https://api.seatgeek.com/2/events") ?? URLComponents()
-    var queryItems = [URLQueryItem]()
+    private var queryURLComponents = URLComponents(string: "https://api.seatgeek.com/2/events") ?? URLComponents()
+    private var queryItems = [URLQueryItem]()
+    private let jsonDecoder = JSONDecoder()
     
-    let jsonDecoder = JSONDecoder()
-    
-    // Set this to the latest string being entered, used to invalidate
-    // result if the result is for a different string. To cut down on
-    // unecessary refreshes.
-    var searchingFor: String?
+    lazy var imageDownloadQueue: OperationQueue = {
+      var queue = OperationQueue()
+      queue.name = "Image Download"
+      queue.maxConcurrentOperationCount = 2
+      return queue
+    }()
     
     override init() {
         super.init()
@@ -55,14 +58,17 @@ class MasterViewViewModel: NSObject {
      query sting is used to invalidate the return if it does not match what is in the
      search bar.
     **/
-    func result(forQuery: String, onComplete: @escaping ((String, EventsModel) -> Void))  {
+    func result(forQuery query: String, onComplete: @escaping ((String) -> Void))  {
+        print("New Search: \(query)")
         
-        if forQuery.count <= 3 {
+        if query.count <= 3 {
+            // Dont change anything that is displayed
             return
         }
         
-        self.queryURLComponents.queryItems = self.queryItems + [URLQueryItem(name: "q", value: forQuery)]
-        print(forQuery)
+        // Resubmit the query - not caching as search criteria is not clear
+        self.queryURLComponents.queryItems = self.queryItems + [URLQueryItem(name: "q", value: query)]
+       
         guard let url = self.queryURLComponents.url else {
             return
         }
@@ -74,7 +80,8 @@ class MasterViewViewModel: NSObject {
             } else if let data = data {
                 do {
                     if let jsonModel = try self?.jsonDecoder.decode(EventsModel.self, from: data) {
-                        onComplete(forQuery, jsonModel)
+                        self?.events = jsonModel.events
+                        onComplete(query)
                     }
                 } catch {
                     print(error.localizedDescription)

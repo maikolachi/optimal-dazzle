@@ -11,7 +11,11 @@ import CoreData
 
 class MasterViewController: UITableViewController {
     
-    var eventsModel: EventsModel?
+//    var eventsModel: EventsModel?
+    
+    let docPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
+    
+    var cacheUrl: NSURL?
     
     var detailViewController: DetailViewController? = nil
     let searchController = UISearchController(searchResultsController: nil)
@@ -28,6 +32,9 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.cacheUrl = NSURL(fileURLWithPath: self.docPath)
+        self.tableView.prefetchDataSource = self
         
         self.navigationItem.titleView = searchController.searchBar
         searchController.searchBar.placeholder = "Search for an event"
@@ -59,8 +66,6 @@ class MasterViewController: UITableViewController {
         super.viewWillAppear(animated)
     }
 
-   
-
     // MARK: - Segues
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -75,47 +80,90 @@ class MasterViewController: UITableViewController {
         }
     }
     
+
     // MARK: - Table View
 
     override func numberOfSections(in tableView: UITableView) -> Int {
+        print("Number of sections called: \(self.viewModel.events.count)")
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.eventsModel?.events.count ?? 0
+        print("Number of rows called: \(self.viewModel.events.count)")
+        return self.viewModel.events.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        print("Cell for row called: \(indexPath.row)")
         
         guard
-            let events = self.eventsModel?.events,
-            let event = events[safe: indexPath.row],
+            let event = self.viewModel.events[safe: indexPath.row],
             let cell = tableView.dequeueReusableCell(withIdentifier: "event-cell", for: indexPath) as? MasterTableViewCell else {
                 
                 fatalError("Table view cell could not be created")
         }
         
         cell.titleLabel.text = event.title
-//
-//        let url = URL(string: )
-//        if let data = try? Data(contentsOf: url) {
-//            if let image = UIImage(data: data) {
-//                DispatchQueue.main.async {
-//                    self?.image = image
-//                }
-//            }
-//        }
-//
-//        cell.imageView = UIImage(
-//
-//        configureCell(cell, withEvent: event)
+        cell.dateLabel.text = event.eventTimeDisplayString
+        cell.locationLabel.text = event.venue.displayLocation
+        
+        // if the file is cached, load it otherwise default image is shown -
+        // The download has not finished. NO process to updated after download
+        // finished, user scroll up and down will refresh automatically
+
+        
+        if let pathUrl = self.cacheUrl?.appendingPathComponent(event.imageHash) {
+            if FileManager.default.fileExists(atPath: pathUrl.path) {
+                print("Cache Available: \(pathUrl.path)")
+                do {
+                    let imageData = try Data(contentsOf: pathUrl)
+                    if !imageData.isEmpty {
+                        cell.thumbnail.image = UIImage(data: imageData)
+                    } else {
+                        print("Image data is invalid")
+                        cell.thumbnail.image = UIImage(named: "default-image")
+                    }
+                } catch {
+                    print("Image read crashed")
+                    cell.thumbnail.image = UIImage(named: "default-image")
+                }
+            } else {
+                print("Not Available: \(pathUrl.path)")
+                if let url = event.primaryPeformerImageUrl {
+                    
+                    let operation = ImageDownloadOperation(fileName: event.imageHash,
+                                                       imageUrl: url,
+                                                       eventId: event.id)
+                    operation.onComplete = { (eid, imageData) in
+                        
+                        // Will return here after image is downloaded
+                        // Not interrupting the process to avoid corruption but on return check if the image
+                        // is for the correct event.
+                        if event.id == eid {
+                            DispatchQueue.main.async {
+                                cell.thumbnail.image = UIImage(data: imageData)
+                                cell.setNeedsDisplay()
+                                print("Image refreshed")
+                            }
+                        
+                        } else {
+                            print("Wrong image refreshed")
+                        }
+                    }
+                    operation.qualityOfService = .background
+                    operation.queuePriority = .normal
+                    self.viewModel.imageDownloadQueue.addOperation(operation)
+                }
+                cell.thumbnail.image = UIImage(named: "default-image")
+            }
+        }
         return cell
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return true
+        return false
     }
 
 //    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -183,6 +231,30 @@ class MasterViewController: UITableViewController {
 
 }
 
+extension MasterViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        
+        // Queue all these images to download
+        
+        for indexPath in indexPaths {
+            if  let event = self.viewModel.events[safe: indexPath.row],
+                let url = event.primaryPeformerImageUrl {
+                let operation = ImageDownloadOperation(fileName: event.imageHash, imageUrl: url, eventId: event.id)
+                
+                operation.qualityOfService = .background
+                operation.queuePriority = .normal
+                self.viewModel.imageDownloadQueue.addOperation(operation)
+            } else {
+                print("Index path \(indexPath.row) event not found")
+            }
+        }
+    
+        
+        // Launch an operation to prefetch the image and story on drive
+        
+    }
+}
+
 extension MasterViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -197,8 +269,9 @@ extension MasterViewController: UISearchResultsUpdating {
             return
         }
         
-        self.viewModel.result(forQuery: searchText, onComplete: { (query, events) in
-            self.eventsModel = events
+        self.viewModel.result(forQuery: searchText, onComplete: { (query) in
+            print("New Images received: \(self.viewModel.events.count)")
+//            self.eventsModel = events
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }

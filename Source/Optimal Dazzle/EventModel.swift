@@ -22,6 +22,10 @@ struct EventModel: Decodable {
     let localDateTime: Date    // "datetime_local": "2019-09-26T13:05:00"
     let eventTimeDisplayString: String
     var primaryPeformerImageUrl: URL?
+    let venue: VenuModel
+    
+    // The image will be cached with this name
+    var imageHash: String = ""
     
     let performers: [PerformerModel]
     enum CodingKeys: String, CodingKey {
@@ -29,42 +33,44 @@ struct EventModel: Decodable {
         case title
         case id
         case performers
+        case location
+        case venue
     }
     
     init() {
-        title = "An error occurred"
+        title = "TBD"
         id = 0
         localDateTime = Date.distantPast
         eventTimeDisplayString = "TBD"
         performers = []
+        venue = VenuModel(displayLocation: "TBD")
     }
     
     init(from decoder: Decoder) throws {
-        
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decode(UInt.self, forKey: .id)
-        print(self.id)
-        title = try values.decode(String.self, forKey: .title)
-        let dateString = try values.decode(String.self, forKey: .localDateTimeString)
-
-        // Convert and save the display date once
+        
+        id = try values.decodeIfPresent(UInt.self, forKey: .id) ?? 0
+        title = try values.decodeIfPresent(String.self, forKey: .title) ?? "N/A"
+        let dateString = try values.decodeIfPresent(String.self, forKey: .localDateTimeString) ?? ""
         localDateTime = EventModel.dateInputFormatter.date(from: dateString) ?? Date.distantFuture
         eventTimeDisplayString = EventModel.dateDisplayFormatter.string(from: localDateTime)
-        
+//        location = try values.decodeIfPresent(String.self, forKey: .location) ?? "TBD"
         performers = try values.decode([PerformerModel].self, forKey: .performers)
-        print(performers.count)
+        venue = try values.decode(VenuModel.self, forKey: .venue)
         
-//        // Fetch the primary performer so we dont have to do it each time
-//        if let pPerformer = (performers.filter { (p) -> Bool in
-//            if p.primary {
-//                return true
-//            } else {
-//                return false
-//            }
-//        }.first) {
-//            // If there is a primary performer - extract its image url
-//            self.primaryPeformerImageUrl = URL(string: pPerformer.imageUrl)
-//        }
+        // Set the image-url so it is not done during fetch
+        if let pPerformer = (performers.filter { (p) -> Bool in
+            if p.primary {
+                return true
+            } else {
+                return false
+            }
+        }.first) {
+            // If there is a primary performer - extract its image url
+            self.primaryPeformerImageUrl = URL(string: pPerformer.image)
+            self.imageHash = "IMG"+String(pPerformer.image.hashValue)
+            print(self.imageHash)
+        }
     }
 }
 
@@ -76,21 +82,21 @@ struct PerformerModel: Decodable {
     let image: String
     let primary: Bool
 
-//    enum CodingKeys: String, CodingKey {
-//        case imageUrl = "image"
-//        case primary
-//    }
+    enum CodingKeys: String, CodingKey {
+        case image
+        case primary
+    }
     
-//    init(from decoder: Decoder) throws {
-//        let values = try decoder.container(keyedBy: CodingKeys.self)
-//        primary = try values.decode(Bool.self, forKey: .primary)
-//        imageUrl = try values.decode(String.self, forKey: .imageUrl)
-//    }
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        primary = try values.decodeIfPresent(Bool.self, forKey: .primary) ?? false
+        image = try values.decodeIfPresent(String.self, forKey: .image) ?? ""
+    }
 }
 
-//struct VenuModel: Decodable {
-//    let displayLocation: String
-//    enum CodingKeys: String, CodingKey {
-//        case displayLocation = "display_location"
-//    }
-//}
+struct VenuModel: Decodable {
+    let displayLocation: String
+    enum CodingKeys: String, CodingKey {
+        case displayLocation = "display_location"
+    }
+}

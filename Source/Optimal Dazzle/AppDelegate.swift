@@ -27,12 +27,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let masterNavigationController = splitViewController.viewControllers[0] as! UINavigationController
         let controller = masterNavigationController.topViewController as! MasterViewController
         controller.persistentContainer = self.persistentContainer
-        
-        EventModel.dateInputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+
+        EventModel.dateInputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         EventModel.dateInputFormatter.locale = Locale(identifier: "en_US_POSIX")
         
-        EventModel.dateDisplayFormatter.dateFormat = "E, d MMM yyyy HH:mm a"
+        EventModel.dateDisplayFormatter.dateFormat = "E, d MMM yyyy hh:mm a"
         EventModel.dateInputFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        ImageDownloadOperation.path =  NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
         
         return true
     }
