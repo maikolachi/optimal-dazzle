@@ -27,4 +27,4 @@ Implements a look ahead search against the Seat Geek API.
 
 ![iPhone Master](docs/iphone-master.png) ![Details screen](docs/iphone-detail.png) 
 
-![iPad Screen](docs/iipad.png) 
+![iPad Screen](docs/ipad.png) 
