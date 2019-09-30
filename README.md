@@ -31,6 +31,11 @@ Implements a look ahead search against the Seat Geek API.
 - Created a simple unit test to verify that for a searcy ('a') all events have images, it fails in multiple places
 - Additional tests need to be written
 
+## TODO
+
+- On the iPad when nothing is selected, nothing should be displayed
+- On the iPad the back button should be the Split View Button to allow for colapse of master view in landscape
+
 
 # Screen Captures
 
