@@ -16,8 +16,12 @@ Implements a look ahead search against the Seat Geek API.
 ## Caching mechanism
 
 - The favourities are cached in Core Data and are loaded into a hash table (Set) on startup to allow for O(1) search efficiency
-- Images are cached always in the documents folder. If the table view does not find them there it queues a download NSOperation that fetcehs the image and saves it in the cache
-- Query results and details of events are not cached
+- Images are cached in the documents folder
+- UITableView prefeching is used to verify that the imaage is in the cache, if not present an NSOperation is queued to fetch the image and place it in the cache. 
+- Also during cell construction for the Table View, if the image is not found in the cache an operation is queued and that operation provides a call back that is called when the download is complete. 
+- When downloading images while building a cell, the callback verifies that the downloaded image is for the same cell that is displaying, as may not be the case when the cell is reused.
+- The operation to download images runs on a background thread and if the iamge is found in the cache it ignores the process, else downloads it and saves it in the cache. 
+- **Query results and details of events are not cached**
 
 ## Unit Tests
 
