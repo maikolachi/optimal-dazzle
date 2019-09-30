@@ -1,7 +1,9 @@
 # Optimal Dazzle
-Implements a look ahead search against the Seat Geek API. 
+Implements a look ahead search against the Seat Geek API. Open the Xcode project in the Sources directory and run it in the simmulator.
 
 `HOPE ALL ERRORS HAVE BEEN REMOVED - IF NOT THEY ARE MINOR ONES :)`
+
+**iPhone version supports only the Portrait view for now**
 
 ## Details
 

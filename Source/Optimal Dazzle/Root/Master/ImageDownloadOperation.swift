@@ -42,7 +42,6 @@ class ImageDownloadOperation: Operation {
                 }
                 do {
                     try imageData.write(to: pathUrl)
-                    print("Cached: \(filePath)")
                     self.onComplete?(self.eventId, imageData)
                 } catch {
 //                    print("Caching crashed \(filePath)")
