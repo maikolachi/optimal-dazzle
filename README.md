@@ -5,6 +5,8 @@ Implements a look ahead search against the Seat Geek API. Open the Xcode project
 
 **iPhone version supports only the Portrait view for now**
 
+INGREDIENTS: **Pure and Simple SWIFT 5 Only**
+
 ## Details
 
 1. Using a Split View Controller to allow iPad and iOS versions on the same code base
@@ -16,6 +18,7 @@ Implements a look ahead search against the Seat Geek API. Open the Xcode project
 7. Dark mode may not appear correctly
 8. If the image url is not supplied by the API a stock image is displayed, as there are many events without one
 9. Using the largest size image for the thumbnail to get the worst case which can be imporved by using a smaller image if available
+10. No PODS or external frameworks were used in this solutions. Swift 5 only.
 
 ## Caching
 
