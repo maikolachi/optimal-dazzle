@@ -13,19 +13,20 @@ Implements a look ahead search against the Seat Geek API.
 8. If the image url is not supplied by the API a stock image is displayed, as there are many events without one
 9. Some quirks may be remaining like on the Split View the back button shold not show in some layouts, have to add the split view button.
 
-## Caching mechanism
+## Caching
 
 - The favourities are cached in Core Data and are loaded into a hash table (Set) on startup to allow for O(1) search efficiency
 - Images are cached in the documents folder
 - UITableView prefeching is used to verify that the imaage is in the cache, if not present an NSOperation is queued to fetch the image and place it in the cache. 
 - Also during cell construction for the Table View, if the image is not found in the cache an operation is queued and that operation provides a call back that is called when the download is complete. 
 - When downloading images while building a cell, the callback verifies that the downloaded image is for the same cell that is displaying, as may not be the case when the cell is reused.
-- The operation to download images runs on a background thread and if the iamge is found in the cache it ignores the process, else downloads it and saves it in the cache. 
-- **Query results and details of events are not cached**
+- The operation to download images runs on a background thread and if the image is found in the cache it ignores the process, else downloads it and saves it in the cache. 
+- **Query results and details of events are never cached** to allow for maximum flexibility
 
 ## Unit Tests
 
-- The design uses MVVM architecture and created a simple test to retrieve verify that all events starting with "a" have an image. They do not, the url is missing in many cases. 
+- Created a simple unit test to verify that for a searcy ('a') all events have images, it fails in multiple places
+- Additional tests need to be written
 
 
 # Screen Captures
