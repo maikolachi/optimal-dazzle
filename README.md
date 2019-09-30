@@ -13,17 +13,17 @@ Implements a look ahead search against the Seat Geek API.
 6. Developed using Xcode 11 and targets iOS 12.4
 7. Dark mode may not appear correctly
 8. If the image url is not supplied by the API a stock image is displayed, as there are many events without one
-9. Using the largest size image for the thumbnail to get the worst case which can be imporved by using a smaller available image
+9. Using the largest size image for the thumbnail to get the worst case which can be imporved by using a smaller image if available
 
 ## Caching
 
 - The favourities are cached in Core Data and are loaded into a hash table (Set) on startup to allow for O(1) search efficiency
 - Images are cached in the documents folder
-- UITableView prefeching is used to verify that the imaage is in the cache, if not present an NSOperation is queued to fetch the image and place it in the cache. 
-- Also during cell construction for the Table View, if the image is not found in the cache an operation is queued and that operation provides a call back that is called when the download is complete. 
+- UITableView prefeching is used to verify that the imaage is in the cache, if not present, an NSOperation is queued to fetch the image and place it in the cache. 
+- Also during cell construction for the Table View, if the image is not found in the cache, an operation is queued and that operation provides a call back that is called when the download is complete. 
 - When downloading images while building a cell, the callback verifies that the downloaded image is for the same cell that is displaying, as may not be the case when the cell is reused.
 - The operation to download images runs on a background thread and if the image is found in the cache it ignores the process, else downloads it and saves it in the cache. 
-- **Query results and details of events are never cached** to allow for maximum flexibility
+- **Query results and details of events are never cached** - to allow for maximum flexibility
 
 ## Unit Tests
 
@@ -32,7 +32,7 @@ Implements a look ahead search against the Seat Geek API.
 
 ## TODO
 
-- On the iPad when nothing is selected, nothing should be displayed
+- On the iPad when no event is selected, nothing should be displayed
 - On the iPad the back button should be the Split View Button to allow for colapse of master view in landscape
 
 
