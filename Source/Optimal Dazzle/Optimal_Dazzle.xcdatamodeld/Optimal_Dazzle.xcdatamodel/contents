@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="18G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Event" representedClassName="Event">
-        <attribute name="timestamp" optional="YES" attributeType="Date"/>
-        <userInfo/>
-    </entity>
-    <entity name="Favourite" representedClassName="Favourite" syncable="YES" codeGenerationType="class">
-        <attribute name="eventId" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+    <entity name="Favourite" representedClassName="Favourite" syncable="YES">
+        <attribute name="eventId" optional="YES" attributeType="Integer 64" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="Event" positionX="261" positionY="189" width="128" height="60"/>
         <element name="Favourite" positionX="261" positionY="198" width="128" height="58"/>
     </elements>
 </model>

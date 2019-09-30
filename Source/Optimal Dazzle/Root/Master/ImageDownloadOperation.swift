@@ -9,10 +9,8 @@
 import Foundation
 
 /***
-    Operation to download the image if it is not already in the document cache. Queue
-    runns without any callbacks.
- 
-    Assumption: A image url is never updated, a new url may be created for an event
+ Operation queued when an image has to be downloaded. Checks if it is in the cache first. Downloads and signals
+ with callback if download was ncessary. 
  */
 
 class ImageDownloadOperation: Operation {
@@ -20,11 +18,11 @@ class ImageDownloadOperation: Operation {
     private let fileName: String
     private let imageUrl: URL
     static var path: String = ""
-    private let eventId: UInt
+    private let eventId: Int64
     
-    var onComplete: ((UInt, Data) -> Void)?
+    var onComplete: ((Int64, Data) -> Void)?
     
-    init(fileName: String, imageUrl: URL, eventId: UInt)   {
+    init(fileName: String, imageUrl: URL, eventId: Int64)   {
         self.fileName = fileName
         self.imageUrl = imageUrl
         self.eventId = eventId
@@ -35,7 +33,7 @@ class ImageDownloadOperation: Operation {
         if let pathUrl = url.appendingPathComponent(self.fileName) {
             let filePath = pathUrl.path
             if FileManager.default.fileExists(atPath: filePath) {
-                print("Available: \(filePath)")
+                // print("Available: \(filePath)")
             } else {
                 // Fetch the file
                 guard
@@ -47,12 +45,12 @@ class ImageDownloadOperation: Operation {
                     print("Cached: \(filePath)")
                     self.onComplete?(self.eventId, imageData)
                 } catch {
-                    print("Caching crashed \(filePath)")
+//                    print("Caching crashed \(filePath)")
                 }
                 // Image returned save to file
             }
         } else {
-            print("FILE PATH NOT AVAILABLE")
+//            print("FILE PATH NOT AVAILABLE")
         }
     }
 }

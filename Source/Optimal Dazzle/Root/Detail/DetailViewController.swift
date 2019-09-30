@@ -20,24 +20,42 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     
+    weak var masterViewController: MasterViewController?
+    
+    var viewModel = DetailViewViewModel()
+    
     func configureView() {
+        
+        // On smaller format (non iPad) this is called first when
+        // none of the controls are loaded. Called again after the segue.
+        
+        // On tablets, the controls are all loaded so this works without
+        // segue.
+        
         guard
-            let event = self.event else {
+            let event = self.event,
+            let titleLabel = self.titleLabel,
+            let locationLabel = self.locationLabel,
+            let dateLabel = self.dateLabel else {
                 return
         }
-        print(event.title)
-        self.titleLabel?.text = event.title
-        self.locationLabel?.text = event.venue.displayLocation
-        self.dateLabel?.text = event.eventTimeDisplayString
-
+        titleLabel.text = event.title
+        locationLabel.text = event.venue.displayLocation
+        dateLabel.text = event.eventTimeDisplayString
         
-        // Download the image and display
-        // Update the user interface for the detail item.
-//        if let detail = detailItem {
-//            if let label = detailDescriptionLabel {
-//                label.text = detail.timestamp!.description
-//            }
-//        }
+        if let imageData = self.viewModel.image(forEvent: event) {
+            self.mainImageView.image = UIImage(data: imageData)
+        } else {
+            self.mainImageView.image = UIImage(named: "event-default")
+        }
+        
+        if FavouriteSession.shared.isFavourite(event.id) {
+            self.filledHeartButton.isHidden = false
+            self.emptyHeartButton.isHidden = true
+        } else {
+            self.filledHeartButton.isHidden = true
+            self.emptyHeartButton.isHidden = false
+        }
     }
 
     override func viewDidLoad() {
@@ -54,7 +72,24 @@ class DetailViewController: UIViewController {
             configureView()
         }
     }
-
+    @IBAction func emptyHeartTouched(_ sender: UIButton) {
+        if FavouriteSession.shared.addFavourite(self.event?.id ?? 0) {
+            // Was added
+            self.emptyHeartButton.isHidden = true
+            self.filledHeartButton.isHidden = false
+            self.masterViewController?.tableView.reloadData()
+        }
+    }
+    
+    @IBAction func filledHeartTouched(_ sender: UIButton) {
+        if FavouriteSession.shared.removeFavourite(self.event?.id ?? 0) {
+            // Successfully removed
+            self.emptyHeartButton.isHidden = false
+            self.filledHeartButton.isHidden = true
+            self.masterViewController?.tableView.reloadData()
+        }
+    }
+    
 
 }
 

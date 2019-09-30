@@ -18,7 +18,7 @@ struct EventModel: Decodable {
     static let dateDisplayFormatter = DateFormatter()
     
     let title: String
-    let id: UInt
+    let id: Int64
     let localDateTime: Date    // "datetime_local": "2019-09-26T13:05:00"
     let eventTimeDisplayString: String
     var primaryPeformerImageUrl: URL?
@@ -49,12 +49,11 @@ struct EventModel: Decodable {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
-        id = try values.decodeIfPresent(UInt.self, forKey: .id) ?? 0
+        id = try values.decodeIfPresent(Int64.self, forKey: .id) ?? 0
         title = try values.decodeIfPresent(String.self, forKey: .title) ?? "N/A"
         let dateString = try values.decodeIfPresent(String.self, forKey: .localDateTimeString) ?? ""
         localDateTime = EventModel.dateInputFormatter.date(from: dateString) ?? Date.distantFuture
         eventTimeDisplayString = EventModel.dateDisplayFormatter.string(from: localDateTime)
-//        location = try values.decodeIfPresent(String.self, forKey: .location) ?? "TBD"
         performers = try values.decode([PerformerModel].self, forKey: .performers)
         venue = try values.decode(VenuModel.self, forKey: .venue)
         
@@ -69,14 +68,9 @@ struct EventModel: Decodable {
             // If there is a primary performer - extract its image url
             self.primaryPeformerImageUrl = URL(string: pPerformer.image)
             self.imageHash = "IMG"+String(pPerformer.image.hashValue)
-            print(self.imageHash)
         }
     }
 }
-
-//struct PerformersModel: Codable {
-//    let performers: [PerformerModel]
-//}
 
 struct PerformerModel: Decodable {
     let image: String
