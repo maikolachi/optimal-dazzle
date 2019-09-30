@@ -1,13 +1,13 @@
 # Optimal Dazzle
 Implements a look ahead search against the Seat Geek API. 
 
-## Architectural Choices
+## Details
 
 1. Using a Split View Controller to allow iPad and iOS versions using the same code base
-2. User types ahead that triggers a new search from the API. Search resulst are not cached to allow for maximum flexibility
-3. Remvoed without the navigation controller as the detail view design did not show one
-4. The detail view is implemented as a popover on the iPhone instead of what the design shows as that is the standard now for non-navigation controller segues on iPhone
-5. MVVM is used as the standard architecture to simplify unit testing
+2. User types ahead that triggers a new search from the API
+3. Implemented without the navigation controller as the detail view did not show one
+4. The detail view appears as a popover on the iPhone instead of a full detail view
+5. MVVM is the architecture of choice to encourage unit testing
 6. Developed on Xcode 11 and targets iOS 12.4
 7. Dark mode may not appear correctly
 8. If the image url is not supplied by the API a stock image is displayed, as there are many events without one
