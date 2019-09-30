@@ -1,7 +1,7 @@
 # Optimal Dazzle
 Implements a look ahead search against the Seat Geek API. 
 
-`HOPE ALL ERRORS HAVE BEEN REMOVED - IF NOT THEY ARE MINOR ONES :)'`
+`HOPE ALL ERRORS HAVE BEEN REMOVED - IF NOT THEY ARE MINOR ONES :)`
 
 ## Details
 
