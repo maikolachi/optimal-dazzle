@@ -1,6 +1,8 @@
 # Optimal Dazzle
 Implements a look ahead search against the Seat Geek API. 
 
+`hope there are no errors left - if there are they are minor`
+
 ## Details
 
 1. Using a Split View Controller to allow iPad and iOS versions using the same code base
