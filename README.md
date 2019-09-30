@@ -11,7 +11,8 @@ Implements a look ahead search against the Seat Geek API.
 6. Developed using Xcode 11 and targets iOS 12.4
 7. Dark mode may not appear correctly
 8. If the image url is not supplied by the API a stock image is displayed, as there are many events without one
-9. Some quirks may be remaining like on the Split View the back button shold not show in some layouts, have to add the split view button.
+9. Some quirks may be remaining like on the Split View the back button shold not show in some layouts, have to add the split view button
+10. Using the largest size image for the thumbnail to get the worst case which can be imporved by using a smaller available image
 
 ## Caching
 
