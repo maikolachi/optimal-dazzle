@@ -23,7 +23,7 @@ Implements a look ahead search against the Seat Geek API.
 - The design uses MVVM architecture and created a simple test to retrieve verify that all events starting with "a" have an image. They do not, the url is missing in many cases. 
 
 
-### Screen Captures
+# Screen Captures
 
 ![iPhone Master](docs/iphone-master.png) ![Details screen](docs/iphone-detail.png) 
 
