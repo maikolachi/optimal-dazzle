@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YuJ-g1-qZf">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Detail View Controller-->
+        <scene sceneID="ngn-Ag-1ET">
+            <objects>
+                <viewController id="YuJ-g1-qZf" customClass="DetailViewController" customModule="Optimal_Dazzle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mxE-z3-M8V">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gXd-mH-teS">
+                                <rect key="frame" x="0.0" y="44" width="414" height="91"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eKo-4Z-a0Q" userLabel="divider">
+                                        <rect key="frame" x="16" y="90.5" width="382" height="0.5"/>
+                                        <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="3kc-Sa-B6N"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DF8-BQ-wYn" userLabel="EmptyHeart">
+                                        <rect key="frame" x="366" y="9" width="32" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="Cb9-s4-bxu"/>
+                                            <constraint firstAttribute="width" constant="32" id="gOB-mi-bC1"/>
+                                        </constraints>
+                                        <state key="normal" image="empty-Heart32"/>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dsy-fc-2Np" userLabel="FilledHeart">
+                                        <rect key="frame" x="366" y="9" width="32" height="32"/>
+                                        <state key="normal" image="filled-Heart32"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3m-a9-iry" userLabel="LeftArrow">
+                                        <rect key="frame" x="16" y="10" width="17" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="17" id="InR-sX-50W"/>
+                                            <constraint firstAttribute="height" constant="28" id="gxJ-Kr-Z8E"/>
+                                        </constraints>
+                                        <state key="normal" image="left-left32"/>
+                                        <connections>
+                                            <segue destination="urz-zK-dJ7" kind="unwind" unwindAction="unwindToMasterWithSegue:" id="asp-Bu-ek6"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Texas Rangers at Oakland Athletics" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5bj-yY-o23">
+                                        <rect key="frame" x="47" y="7" width="241.5" height="67"/>
+                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="28"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="G3m-a9-iry" firstAttribute="leading" secondItem="gXd-mH-teS" secondAttribute="leading" constant="16" id="2wK-ot-RRu"/>
+                                    <constraint firstAttribute="bottom" secondItem="eKo-4Z-a0Q" secondAttribute="bottom" id="2wr-iP-E0b"/>
+                                    <constraint firstAttribute="trailing" secondItem="eKo-4Z-a0Q" secondAttribute="trailing" constant="16" id="9N6-gE-toT"/>
+                                    <constraint firstItem="DF8-BQ-wYn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5bj-yY-o23" secondAttribute="trailing" constant="12" id="ACv-K9-buk"/>
+                                    <constraint firstItem="dsy-fc-2Np" firstAttribute="bottom" secondItem="DF8-BQ-wYn" secondAttribute="bottom" id="OwO-jQ-X4N"/>
+                                    <constraint firstAttribute="trailing" secondItem="DF8-BQ-wYn" secondAttribute="trailing" constant="16" id="Rvy-OO-ALf"/>
+                                    <constraint firstAttribute="bottom" secondItem="5bj-yY-o23" secondAttribute="bottom" constant="17" id="S1b-dI-pPH"/>
+                                    <constraint firstItem="eKo-4Z-a0Q" firstAttribute="leading" secondItem="gXd-mH-teS" secondAttribute="leading" constant="16" id="Wa6-oT-9Ek"/>
+                                    <constraint firstItem="5bj-yY-o23" firstAttribute="top" secondItem="gXd-mH-teS" secondAttribute="top" constant="7" id="dhk-UB-sam"/>
+                                    <constraint firstItem="5bj-yY-o23" firstAttribute="leading" secondItem="G3m-a9-iry" secondAttribute="trailing" constant="14" id="f4i-ft-d72"/>
+                                    <constraint firstItem="dsy-fc-2Np" firstAttribute="trailing" secondItem="DF8-BQ-wYn" secondAttribute="trailing" id="jnb-kl-gaN"/>
+                                    <constraint firstItem="DF8-BQ-wYn" firstAttribute="top" secondItem="gXd-mH-teS" secondAttribute="top" constant="9" id="n7C-UE-Ehd"/>
+                                    <constraint firstItem="dsy-fc-2Np" firstAttribute="top" secondItem="DF8-BQ-wYn" secondAttribute="top" id="qMl-lJ-2Dv"/>
+                                    <constraint firstItem="dsy-fc-2Np" firstAttribute="leading" secondItem="DF8-BQ-wYn" secondAttribute="leading" id="yHO-qe-dK3"/>
+                                    <constraint firstItem="G3m-a9-iry" firstAttribute="top" secondItem="gXd-mH-teS" secondAttribute="top" constant="10" id="zFQ-tD-KMf"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="event-default" translatesAutoresizingMaskIntoConstraints="NO" id="8yU-Zo-9JK">
+                                <rect key="frame" x="16" y="143" width="382" height="215"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="8yU-Zo-9JK" secondAttribute="height" multiplier="16:9" id="OS6-q0-TyS"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layuer.clipToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="BSL-v2-Tag">
+                                <rect key="frame" x="16" y="374" width="382" height="53"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mon 13 June, 2018 4:00 PM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="obM-XK-Tao">
+                                        <rect key="frame" x="0.0" y="0.0" width="382" height="27.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oakloand, CA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pv1-HH-Tex">
+                                        <rect key="frame" x="0.0" y="31.5" width="382" height="21.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="gXd-mH-teS" firstAttribute="top" secondItem="lss-tb-5gT" secondAttribute="top" id="NBV-99-bWm"/>
+                            <constraint firstItem="BSL-v2-Tag" firstAttribute="top" secondItem="8yU-Zo-9JK" secondAttribute="bottom" constant="16" id="S5j-CG-1Sd"/>
+                            <constraint firstItem="8yU-Zo-9JK" firstAttribute="leading" secondItem="lss-tb-5gT" secondAttribute="leading" constant="16" id="UsY-Jv-Ykc"/>
+                            <constraint firstItem="lss-tb-5gT" firstAttribute="trailing" secondItem="8yU-Zo-9JK" secondAttribute="trailing" constant="16" id="VtT-pI-A9M"/>
+                            <constraint firstItem="8yU-Zo-9JK" firstAttribute="top" secondItem="gXd-mH-teS" secondAttribute="bottom" constant="8" id="axc-K4-L46"/>
+                            <constraint firstItem="lss-tb-5gT" firstAttribute="trailing" secondItem="gXd-mH-teS" secondAttribute="trailing" id="bzI-M1-n9J"/>
+                            <constraint firstItem="lss-tb-5gT" firstAttribute="trailing" secondItem="BSL-v2-Tag" secondAttribute="trailing" constant="16" id="j5C-Zy-U7o"/>
+                            <constraint firstItem="gXd-mH-teS" firstAttribute="leading" secondItem="lss-tb-5gT" secondAttribute="leading" id="sZb-6H-oRL"/>
+                            <constraint firstItem="BSL-v2-Tag" firstAttribute="leading" secondItem="lss-tb-5gT" secondAttribute="leading" constant="16" id="xb3-EF-MdU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="lss-tb-5gT"/>
+                    </view>
+                    <connections>
+                        <outlet property="backButton" destination="G3m-a9-iry" id="Wd8-ok-rkB"/>
+                        <outlet property="dateLabel" destination="obM-XK-Tao" id="m9d-Ye-3e3"/>
+                        <outlet property="emptyHeartButton" destination="DF8-BQ-wYn" id="lwO-SC-Myd"/>
+                        <outlet property="filledHeartButton" destination="dsy-fc-2Np" id="h1v-Aw-3Ra"/>
+                        <outlet property="locationLabel" destination="Pv1-HH-Tex" id="Gbg-2w-XGr"/>
+                        <outlet property="mainImageView" destination="8yU-Zo-9JK" id="9fL-14-j8z"/>
+                        <outlet property="titleLabel" destination="5bj-yY-o23" id="6xt-0U-sw8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nbm-fR-n67" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="urz-zK-dJ7" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="113.04347826086958" y="190.84821428571428"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="empty-Heart32" width="32" height="32"/>
+        <image name="event-default" width="280" height="180"/>
+        <image name="filled-Heart32" width="32" height="32"/>
+        <image name="left-left32" width="32" height="55.5"/>
+    </resources>
+</document>

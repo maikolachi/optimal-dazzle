@@ -42,23 +42,9 @@ class MasterViewController: UITableViewController {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         
-//        self.searchBarView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width - 32, height: self.searchBarView.frame.height)
-        
-//        self.searchBarView.placeholder = "Search for an event"
-        
-//        self.searhBar.placeholder = "Search for an event"
-        
-//        let leftBarButton = UIBarButtonItem(customView: self.searhBar)
-//        self.navigationItem.leftBarButtonItem = leftBarButton
-        
-        // Do any additional setup after loading the view.
-//        navigationItem.leftBarButtonItem = editButtonItem
-
-//        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
-//        navigationItem.rightBarButtonItem = addButton
         if let split = splitViewController {
             let controllers = split.viewControllers
-            detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
+            detailViewController = controllers.last as? DetailViewController
         }
     }
 
@@ -68,20 +54,20 @@ class MasterViewController: UITableViewController {
     }
 
     // MARK: - Segues
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-//                let object = self.viewModel.event(at: indexPath)
-                let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-//                controller.detailItem = object
-                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-                controller.navigationItem.leftItemsSupplementBackButton = true
+        if segue.identifier == "to-detail" {
+            guard
+                let indexPath = tableView.indexPathForSelectedRow,
+                let event = self.viewModel.events[safe: indexPath.row],
+                let viewController = segue.destination as? DetailViewController else {
+                    return
             }
+            
+            viewController.event = event
         }
     }
     
-
     // MARK: - Table View
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -109,10 +95,11 @@ class MasterViewController: UITableViewController {
         cell.dateLabel.text = event.eventTimeDisplayString
         cell.locationLabel.text = event.venue.displayLocation
         
-        // if the file is cached, load it otherwise default image is shown -
-        // The download has not finished. NO process to updated after download
-        // finished, user scroll up and down will refresh automatically
-
+        // Checks to see if the image is cahced. If not, launches the dowload queu
+        // and in the mean time displays the default image. Once the image is
+        // retrieved and the cell is still in focus, it will refresh. Checks to ensure
+        // that the downloaded image is for the same event as the cell in case
+        // its reused and out of sync.
         
         if let pathUrl = self.cacheUrl?.appendingPathComponent(event.imageHash) {
             if FileManager.default.fileExists(atPath: pathUrl.path) {
@@ -138,9 +125,7 @@ class MasterViewController: UITableViewController {
                                                        eventId: event.id)
                     operation.onComplete = { (eid, imageData) in
                         
-                        // Will return here after image is downloaded
-                        // Not interrupting the process to avoid corruption but on return check if the image
-                        // is for the correct event.
+                        // Ensure it is the same cell
                         if event.id == eid {
                             DispatchQueue.main.async {
                                 cell.thumbnail.image = UIImage(data: imageData)
@@ -166,7 +151,17 @@ class MasterViewController: UITableViewController {
         // Return false if you do not want the specified item to be editable.
         return false
     }
+    
+    @IBAction func unwindToMaster(segue:UIStoryboardSegue) {
+        
+    }
+    
 
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        print("selected")
+//    }
+    
+    
 //    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 //        if editingStyle == .delete {
 //            let context = fetchedResultsController.managedObjectContext

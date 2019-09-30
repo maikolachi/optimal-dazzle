@@ -12,6 +12,8 @@
 		A49C6AB2233C511A00A47850 /* Event+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49C6AB0233C511A00A47850 /* Event+CoreDataClass.swift */; };
 		A49C6AB3233C511A00A47850 /* Event+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49C6AB1233C511A00A47850 /* Event+CoreDataProperties.swift */; };
 		A49C6AB5233C73D000A47850 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49C6AB4233C73D000A47850 /* EventModel.swift */; };
+		A4B2054A2341A2EA00C88A8B /* DetailViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B205492341A2EA00C88A8B /* DetailViewViewModel.swift */; };
+		A4B2054E2341AD6E00C88A8B /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4B2054D2341AD6E00C88A8B /* Detail.storyboard */; };
 		A4B9A170233C34EE000979FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B9A16F233C34EE000979FC /* AppDelegate.swift */; };
 		A4B9A173233C34EE000979FC /* Optimal_Dazzle.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A4B9A171233C34EE000979FC /* Optimal_Dazzle.xcdatamodeld */; };
 		A4B9A175233C34EE000979FC /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B9A174233C34EE000979FC /* MasterViewController.swift */; };
@@ -48,6 +50,8 @@
 		A49C6AB0233C511A00A47850 /* Event+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A49C6AB1233C511A00A47850 /* Event+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A49C6AB4233C73D000A47850 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
+		A4B205492341A2EA00C88A8B /* DetailViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewViewModel.swift; sourceTree = "<group>"; };
+		A4B2054D2341AD6E00C88A8B /* Detail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
 		A4B9A16C233C34EE000979FC /* Optimal Dazzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Optimal Dazzle.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4B9A16F233C34EE000979FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4B9A172233C34EE000979FC /* Optimal_Dazzle.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Optimal_Dazzle.xcdatamodel; sourceTree = "<group>"; };
@@ -96,9 +100,41 @@
 			isa = PBXGroup;
 			children = (
 				A4B9A178233C34EE000979FC /* Main.storyboard */,
+				A4B2054B2341A32700C88A8B /* Master */,
+				A4B205482341A2D600C88A8B /* Detail */,
 				A4B9A16F233C34EE000979FC /* AppDelegate.swift */,
 			);
 			path = Root;
+			sourceTree = "<group>";
+		};
+		A4B205482341A2D600C88A8B /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				A4B9A176233C34EE000979FC /* DetailViewController.swift */,
+				A4B205492341A2EA00C88A8B /* DetailViewViewModel.swift */,
+				A4B2054D2341AD6E00C88A8B /* Detail.storyboard */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		A4B2054B2341A32700C88A8B /* Master */ = {
+			isa = PBXGroup;
+			children = (
+				A4F4CBD5233F0797003B5ABC /* MasterTableViewCell.swift */,
+				A4B9A174233C34EE000979FC /* MasterViewController.swift */,
+				A49C6AAE233C3DF000A47850 /* MasterViewViewModel.swift */,
+				A467D864233FF0F600F7945D /* ImageDownloadOperation.swift */,
+			);
+			path = Master;
+			sourceTree = "<group>";
+		};
+		A4B2054C2341A44600C88A8B /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				A49C6AB4233C73D000A47850 /* EventModel.swift */,
+				A4C783A1233DAEDF006B4885 /* Collection+.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		A4B9A163233C34EE000979FC = {
@@ -124,20 +160,14 @@
 		A4B9A16E233C34EE000979FC /* Optimal Dazzle */ = {
 			isa = PBXGroup;
 			children = (
+				A4B2054C2341A44600C88A8B /* Common */,
 				A467D86623410BA300F7945D /* Root */,
-				A4B9A174233C34EE000979FC /* MasterViewController.swift */,
-				A4B9A176233C34EE000979FC /* DetailViewController.swift */,
 				A4B9A17B233C34EF000979FC /* Assets.xcassets */,
 				A4B9A17D233C34EF000979FC /* LaunchScreen.storyboard */,
 				A4B9A180233C34EF000979FC /* Info.plist */,
 				A4B9A171233C34EE000979FC /* Optimal_Dazzle.xcdatamodeld */,
 				A49C6AB0233C511A00A47850 /* Event+CoreDataClass.swift */,
 				A49C6AB1233C511A00A47850 /* Event+CoreDataProperties.swift */,
-				A49C6AAE233C3DF000A47850 /* MasterViewViewModel.swift */,
-				A49C6AB4233C73D000A47850 /* EventModel.swift */,
-				A4C783A1233DAEDF006B4885 /* Collection+.swift */,
-				A4F4CBD5233F0797003B5ABC /* MasterTableViewCell.swift */,
-				A467D864233FF0F600F7945D /* ImageDownloadOperation.swift */,
 			);
 			path = "Optimal Dazzle";
 			sourceTree = "<group>";
@@ -267,6 +297,7 @@
 				A4B9A17F233C34EF000979FC /* LaunchScreen.storyboard in Resources */,
 				A4B9A17C233C34EF000979FC /* Assets.xcassets in Resources */,
 				A4B9A17A233C34EE000979FC /* Main.storyboard in Resources */,
+				A4B2054E2341AD6E00C88A8B /* Detail.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +332,7 @@
 				A4B9A177233C34EE000979FC /* DetailViewController.swift in Sources */,
 				A49C6AB2233C511A00A47850 /* Event+CoreDataClass.swift in Sources */,
 				A49C6AB5233C73D000A47850 /* EventModel.swift in Sources */,
+				A4B2054A2341A2EA00C88A8B /* DetailViewViewModel.swift in Sources */,
 				A49C6AAF233C3DF000A47850 /* MasterViewViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

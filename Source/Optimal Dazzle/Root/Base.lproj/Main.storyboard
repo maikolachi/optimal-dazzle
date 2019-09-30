@@ -56,7 +56,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="709" y="129"/>
+            <point key="canvasLocation" x="-355" y="593"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
@@ -65,12 +65,20 @@
                     <toolbarItems/>
                     <connections>
                         <segue destination="RMx-3f-FxP" kind="relationship" relationship="masterViewController" id="BlO-5A-QYV"/>
-                        <segue destination="vC3-pB-5Vb" kind="relationship" relationship="detailViewController" id="Tll-UG-LXB"/>
+                        <segue destination="Xpx-yO-3jL" kind="relationship" relationship="detailViewController" id="5Tw-BK-PWt"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZU-Oi-B1e" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-856" y="-330"/>
+        </scene>
+        <!--Detail-->
+        <scene sceneID="b6D-6T-Bk7">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Detail" id="Xpx-yO-3jL" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SWK-xR-AP8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="662" y="-7"/>
         </scene>
         <!--Master-->
         <scene sceneID="smW-Zh-WAh">
@@ -111,7 +119,7 @@
                                         <stackView opaque="NO" contentMode="center" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="bfS-h7-pt6">
                                             <rect key="frame" x="107" y="19" width="43.5" height="70"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k8X-E1-2Vx">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k8X-E1-2Vx">
                                                     <rect key="frame" x="0.0" y="0.0" width="43.5" height="21"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <nil key="textColor"/>
@@ -135,6 +143,7 @@
                                     <constraints>
                                         <constraint firstItem="EtL-FV-gq2" firstAttribute="leading" secondItem="GjN-qD-BTU" secondAttribute="leading" constant="20" id="3aC-bj-EQX"/>
                                         <constraint firstItem="WEJ-wl-fIb" firstAttribute="leading" secondItem="EtL-FV-gq2" secondAttribute="leading" constant="-8" id="Jpe-Ld-Lrq"/>
+                                        <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="bfS-h7-pt6" secondAttribute="trailing" id="Rr6-cv-Lth"/>
                                         <constraint firstItem="WEJ-wl-fIb" firstAttribute="top" secondItem="EtL-FV-gq2" secondAttribute="top" constant="-5" id="TRb-7U-Q2f"/>
                                         <constraint firstItem="bfS-h7-pt6" firstAttribute="top" secondItem="GjN-qD-BTU" secondAttribute="topMargin" constant="8" id="jji-Ta-5li"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="bfS-h7-pt6" secondAttribute="bottom" constant="8" id="mcl-AQ-ckG"/>
@@ -148,6 +157,7 @@
                                     <outlet property="locationLabel" destination="gQp-mn-Ijm" id="gwe-1m-ZXb"/>
                                     <outlet property="thumbnail" destination="EtL-FV-gq2" id="TNI-2F-ND0"/>
                                     <outlet property="titleLabel" destination="k8X-E1-2Vx" id="o6R-lC-ewA"/>
+                                    <segue destination="Xpx-yO-3jL" kind="showDetail" identifier="to-detail" id="rEX-km-Lft"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -177,11 +187,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SLD-UC-DBI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-45" y="129"/>
+            <point key="canvasLocation" x="475" y="743"/>
         </scene>
     </scenes>
     <resources>
         <image name="default-image" width="100" height="100"/>
         <image name="outline-Heart16" width="16" height="16"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="rEX-km-Lft"/>
+    </inferredMetricsTieBreakers>
 </document>
