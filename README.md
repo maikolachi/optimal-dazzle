@@ -1,28 +1,30 @@
 # Optimal Dazzle
 Implements a look ahead search against the Seat Geek API. 
 
-## Design Details
+## Architectural Choices
 
-Implemented using a Split View controller therefore works natively on the iPad iPhone with the same code base.
+1. Using a Split View Controller to allow iPad and iOS versions using the same code base
+2. User types ahead that triggers a new search from the API. Search resulst are not cached to allow for maximum flexibility
+3. Remvoed without the navigation controller as the detail view design did not show one
+4. The detail view is implemented as a popover on the iPhone instead of what the design shows as that is the standard now for non-navigation controller segues on iPhone
+5. MVVM is used as the standard architecture to simplify unit testing
+6. Developed on Xcode 11 and targets iOS 12.4
+7. Dark mode may not appear correctly
+8. If the image url is not supplied by the API a stock image is displayed, as there are many events without one
 
+## Caching mechanism
 
+- The favourities are cached in Core Data and are loaded into a hash table (Set) on startup to allow for O(1) search efficiency
+- Images are cached always in the documents folder. If the table view does not find them there it queues a download NSOperation that fetcehs the image and saves it in the cache
+- Query results and details of events are not cached
 
-1. Implemented using a Split View and therefore works well both on the iPad and the iPhone. The Navigation Views were removed to allow the display as close as possible to the requirements. 
-2. Search results are not cached, ever as the search targets are not clear. 
-3. The user can "favourite" an even on the detail page fills the heart shape and adds the event to the favorites list. 
-4. The favourites list is stored in Core Data and loaded once in a hash table when the application launches. 
-5. Some events do not have URL's provided, in which case a stock image is displayed in the thumbnail and on the detail page. There are a number of events that have no image. 
-6. Displays the detail as a Popover view instead of as showin in the
+## Unit Tests
 
-![iPhone Master](docks/iphone-master.png) ![Details screen](docs/iphone-detail.png) 
-
-
-## Important
-
-- Some events do not have url's for the i
-
-### Deviation from the requrements
-1. The header colors are slghtly are different than the requrements
+- The design uses MVVM architecture and created a simple test to retrieve verify that all events starting with "a" have an image. They do not, the url is missing in many cases. 
 
 
-### Architecture
+### Screen Captures
+
+![iPhone Master](docs/iphone-master.png) ![Details screen](docs/iphone-detail.png) 
+
+![iPad Screen](docs/iipad.png) 
