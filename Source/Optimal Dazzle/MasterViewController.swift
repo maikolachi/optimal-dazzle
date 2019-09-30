@@ -40,6 +40,7 @@ class MasterViewController: UITableViewController {
         searchController.searchBar.placeholder = "Search for an event"
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
         
 //        self.searchBarView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width - 32, height: self.searchBarView.frame.height)
         
@@ -265,7 +266,7 @@ extension MasterViewController: UISearchResultsUpdating {
             return
         }
         
-        if searchText.count <= 3 {
+        if searchText.count <= 1 {
             return
         }
         

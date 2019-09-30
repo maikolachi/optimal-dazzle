@@ -15,6 +15,7 @@ class MasterTableViewCell: UITableViewCell {
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var thumbnail: UIImageView!
+    @IBOutlet weak var urlTextView: UITextField!
     
     override func awakeFromNib() {
         super.awakeFromNib()

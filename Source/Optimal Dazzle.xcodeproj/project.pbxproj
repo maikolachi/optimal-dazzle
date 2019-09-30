@@ -92,6 +92,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A467D86623410BA300F7945D /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				A4B9A178233C34EE000979FC /* Main.storyboard */,
+				A4B9A16F233C34EE000979FC /* AppDelegate.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
 		A4B9A163233C34EE000979FC = {
 			isa = PBXGroup;
 			children = (
@@ -115,10 +124,9 @@
 		A4B9A16E233C34EE000979FC /* Optimal Dazzle */ = {
 			isa = PBXGroup;
 			children = (
-				A4B9A16F233C34EE000979FC /* AppDelegate.swift */,
+				A467D86623410BA300F7945D /* Root */,
 				A4B9A174233C34EE000979FC /* MasterViewController.swift */,
 				A4B9A176233C34EE000979FC /* DetailViewController.swift */,
-				A4B9A178233C34EE000979FC /* Main.storyboard */,
 				A4B9A17B233C34EF000979FC /* Assets.xcassets */,
 				A4B9A17D233C34EF000979FC /* LaunchScreen.storyboard */,
 				A4B9A180233C34EF000979FC /* Info.plist */,

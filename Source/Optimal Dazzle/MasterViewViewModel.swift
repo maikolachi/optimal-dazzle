@@ -61,11 +61,6 @@ class MasterViewViewModel: NSObject {
     func result(forQuery query: String, onComplete: @escaping ((String) -> Void))  {
         print("New Search: \(query)")
         
-        if query.count <= 3 {
-            // Dont change anything that is displayed
-            return
-        }
-        
         // Resubmit the query - not caching as search criteria is not clear
         self.queryURLComponents.queryItems = self.queryItems + [URLQueryItem(name: "q", value: query)]
        
